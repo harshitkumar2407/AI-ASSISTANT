@@ -1,10 +1,20 @@
-import app from './src/app.js';
 import dotenv from 'dotenv';
-import connectDB from './src/config/db.js';
+dotenv.config({ override: true });
 
-dotenv.config();
+import app from './src/app.js';
+import connectDB from './src/config/db.js';
+import { TestAi } from './src/services/ai.service.js';
 
 const PORT = process.env.PORT || 3000;
+
+// TestAi().catch(error => {
+//   console.error('AI test failed during startup:', error.message);
+// });
+
+
+
+
+
 
 const startServer = async () => {
   try {

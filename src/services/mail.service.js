@@ -1,38 +1,44 @@
 import nodemailer from 'nodemailer';
 
-// Create a Gmail transporter using OAuth2 authentication
-// This connects to Gmail SMTP server with our OAuth2 credentials
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    type: 'OAuth2',
-    user: process.env.GOOGLE_USER,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    refreshToken: process.env.GOOGLE_REFRESH_TOKEN,
-    clientId: process.env.GOOGLE_CLIENT_ID
-  },
-});
+let transporter = null;
 
-// Verify that the transporter is properly configured and can connect to Gmail
-// Runs on startup to check if credentials are valid
-transporter.verify().then(() => {
-  console.log('Email transporter is ready');
-}).catch((error) => {
-  console.error('Error setting up email transporter:', error);
-});
+// Create transporter lazily (on first use) to ensure env vars are loaded
+function getTransporter() {
+  if (!transporter) {
+    transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASSWORD
+      }
+    });
+
+    // Verify connection on first creation
+    transporter.verify().then(() => {
+      console.log('✅ Email transporter is ready');
+    }).catch((error) => {
+      console.error('❌ Email transporter verification failed:', error.message);
+    });
+  }
+  return transporter;
+}
 
 // Low-level email sending function - direct interface to nodemailer
-// This is the base service that actually sends emails
-// Minimal validation, expects caller to provide all required parameters
 export const sendEmail = async (to, subject, html, text) => {
-    const mailOptions = {
-      from: process.env.GOOGLE_USER,
-      to,
-      subject,
-      html,
-      text,
-    };
+  const transporter = getTransporter();
+  const mailOptions = {
+    from: process.env.GMAIL_USER,
+    to,
+    subject,
+    html,
+    text
+  };
+  try {
     const details = await transporter.sendMail(mailOptions);
-    console.log('Email sent:', details.response);
+    console.log('✅ Email sent successfully to:', to);
     return details;
-  };  
+  } catch (error) {
+    console.error('❌ Email sending failed:', error.message);
+    throw error;
+  }
+};  

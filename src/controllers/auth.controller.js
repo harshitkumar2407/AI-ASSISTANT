@@ -118,7 +118,15 @@ export const register = async (req, res) => {
 export const emailVerification = async (req, res) => {
   try {
     const { token } = req.query;
-
+      // token not provided in query parameters
+    if (!token) {
+      return res.status(400).json({
+        success: false,
+        message: "Verification token is required",
+      });
+    }
+    
+  
     // Verify and decode the JWT token
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
@@ -161,22 +169,27 @@ export const emailVerification = async (req, res) => {
     `);
 
   } catch (error) {
+    // list donw the possible errors and handle them
+    if (error.name === "TokenExpiredError") {
+      return res.status(400).json({
+        success: false,
+        message: "Verification token has expired. Please request a new verification email.",
+      });
+    }
+
+    if (error.name === "JsonWebTokenError") {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid verification token. Please check the link or request a new verification email.",
+      });
+    }
+
     console.error("Email verification error:", error);
-    res.status(500).send(`
-      <html>
-        <head>
-          <title>Verification Failed</title>
-          <style>
-            body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
-            h1 { color: red; }
-          </style>
-        </head>
-        <body>
-          <h1>Email Verification Failed</h1>
-          <p>The verification link is invalid or expired. Please request a new one.</p>
-        </body>
-      </html>
-    `);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error during email verification",
+      error: process.env.NODE_ENV === "development" ? error.message : undefined,
+    });
   }
 };
     
