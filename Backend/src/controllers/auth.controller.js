@@ -56,11 +56,12 @@ export const register = async (req, res) => {
 
     // Send verification email
     try {
+      const verificationUrl = `${process.env.WEBSITE_DOMAIN}/api/auth/verify-email?token=${verificationToken}`;
       const html = `<p>Hi ${user.username},</p>
       <p>Thank you for registering. Please verify your email by clicking the link below:</p>
-      <a href="${process.env.WEBSITE_DOMAIN}/verify-email?token=${verificationToken}">Verify Email</a>`;
+      <a href="${verificationUrl}">Verify Email</a>`;
 
-      const text = `Hi ${user.username},\n\nThank you for registering. Please verify your email by clicking the link below:\n${process.env.WEBSITE_DOMAIN}/verify-email?token=${verificationToken}`;
+      const text = `Hi ${user.username},\n\nThank you for registering. Please verify your email by clicking the link below:\n${verificationUrl}`;
 
       await sendEmail(
         user.email,
