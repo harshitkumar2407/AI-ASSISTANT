@@ -1,10 +1,26 @@
 import express from 'express';
+import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import authRoutes from './routes/auth.routes.js';
 
 const app = express();
 
+// CORS configuration
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',  // Vite dev server
+    'http://localhost:3000',  // Allow same-origin requests
+    'http://127.0.0.1:5173',
+    'http://127.0.0.1:3000',
+  ],
+  credentials: true,          // Allow cookies
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  optionsSuccessStatus: 200,
+};
+
 // Middleware
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
