@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './auth.css';
+import { useAuth } from '../hooks/useAuth';
+import { validatePassword } from '../utils/validation';
+import '../styles/auth.css';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,9 +11,7 @@ const Login = () => {
   });
 
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
+  const { login, loading, errorMessage, successMessage } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,65 +36,27 @@ const Login = () => {
 
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 6) {
-      newErrors.password = 'Password must be at least 6 characters';
+    } else if (!validatePassword(formData.password)) {
+      newErrors.password = 'Invalid password';
     }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const isValidEmail = (str) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(str);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrorMessage('');
-    setSuccessMessage('');
 
     if (!validateForm()) {
       return;
     }
 
-    setLoading(true);
+    const success = await login(formData.emailOrUsername, formData.password);
 
-    try {
-      const isEmail = isValidEmail(formData.emailOrUsername);
-      const payload = isEmail
-        ? { email: formData.emailOrUsername, password: formData.password }
-        : { username: formData.emailOrUsername, password: formData.password };
-
-      const response = await fetch(
-        `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000'}/api/auth/login`,
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-          body: JSON.stringify(payload),
-        }
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        setErrorMessage(
-          data.message || 'Login failed. Please check your credentials.'
-        );
-      } else {
-        setSuccessMessage('Login successful! Redirecting...');
-        if (data.token) {
-          localStorage.setItem('token', data.token);
-        }
-        setTimeout(() => {
-          window.location.href = '/chat';
-        }, 1500);
-      }
-    } catch (error) {
-      setErrorMessage('An error occurred. Please try again.');
-      console.error('Login error:', error);
-    } finally {
-      setLoading(false);
+    if (success) {
+      setTimeout(() => {
+        window.location.href = '/chat';
+      }, 1500);
     }
   };
 
@@ -187,11 +149,11 @@ const Login = () => {
         </div>
 
         <div className="social-buttons">
-          <button type="button" className="social-btn google-btn">
+          <button type="button" className="social-btn">
             <span className="social-icon">🔍</span>
             Google
           </button>
-          <button type="button" className="social-btn github-btn">
+          <button type="button" className="social-btn">
             <span className="social-icon">🐙</span>
             GitHub
           </button>
