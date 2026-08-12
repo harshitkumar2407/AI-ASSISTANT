@@ -1,0 +1,4 @@
+📋 NOTE: README.md has been moved to docs/FRONTEND_README.md
+
+The frontend README has been consolidated with main documentation.
+See docs/INDEX.md for documentation navigation.

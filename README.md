@@ -4,20 +4,23 @@ A full-stack AI chat application with authentication, real-time messaging, and A
 
 ## 📚 Documentation
 
-This project has comprehensive documentation across multiple files:
+All documentation is organized in the `/docs` folder. Here are the key files:
 
-### Core Documentation
-- **[Authentication Flow](./docs/AUTH_FLOW.md)** - Detailed auth system flow with all endpoints
-- **[Requirements](./docs/REQUIREMENTS.md)** - Complete API and database requirements
-- **[Architecture](./docs/ARCHITECTURE.md)** - System design and component relationships
+### Quick Start
+- **[SETUP.md](./docs/SETUP.md)** - Step-by-step installation and setup
+- **[ENV_VARIABLES.md](./docs/ENV_VARIABLES.md)** - Environment configuration reference
 
-### Backend Setup
-- **[Email Configuration](./docs/EMAIL_SETUP.md)** - Gmail SMTP setup guide
-- **[API Reference](./docs/API_REFERENCE.md)** - All API endpoints documentation
+### System Documentation
+- **[AUTH_FLOW.md](./docs/AUTH_FLOW.md)** - Complete authentication flow
+- **[REQUIREMENTS.md](./docs/REQUIREMENTS.md)** - API endpoints and database schemas
 
-### Getting Started
-- **[Installation Guide](./docs/SETUP.md)** - Step-by-step installation
-- **[Environment Variables](./docs/ENV_VARIABLES.md)** - Required configurations
+### References
+- **[FRONTEND_README.md](./docs/FRONTEND_README.md)** - Frontend-specific information
+- **[EMAIL_DEBUG_REPORT.md](./docs/EMAIL_DEBUG_REPORT.md)** - Email setup troubleshooting
+- **[FutureFeature.md](./docs/FutureFeature.md)** - Planned features and improvements
+
+### Navigation
+- **[INDEX.md](./docs/INDEX.md)** - Complete documentation index with all files listed
 
 ---
 

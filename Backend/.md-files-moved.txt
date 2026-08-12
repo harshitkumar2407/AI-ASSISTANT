@@ -1,0 +1,10 @@
+📋 NOTE: All .md files have been moved to the /docs folder
+
+Original files:
+- AUTH_FLOW.md → docs/AUTH_FLOW.md
+- EMAIL_DEBUG_REPORT.md → docs/EMAIL_DEBUG_REPORT.md
+- FutureFeature.md → docs/FutureFeature.md
+- Requirements.md → docs/REQUIREMENTS.md
+
+These files are kept for reference but should reference docs/ versions.
+See docs/INDEX.md for documentation navigation.

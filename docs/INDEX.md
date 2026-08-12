@@ -10,29 +10,42 @@ Complete guide to all documentation files in the AI Assistant project.
 |------|---------|
 | [SETUP.md](./SETUP.md) | Step-by-step installation and setup guide |
 | [ENV_VARIABLES.md](./ENV_VARIABLES.md) | All environment variables reference |
+| [INDEX.md](./INDEX.md) | This file - Documentation navigation guide |
 
-### System Architecture
+### System Architecture & Requirements
 
 | File | Purpose |
 |------|---------|
 | [REQUIREMENTS.md](./REQUIREMENTS.md) | API endpoints and database requirements |
 | [AUTH_FLOW.md](./AUTH_FLOW.md) | Complete authentication flow documentation |
-| [ARCHITECTURE.md](./ARCHITECTURE.md) | System design and component relationships |
 
-### Configuration Guides
-
-| File | Purpose |
-|------|---------|
-| [EMAIL_SETUP.md](./EMAIL_SETUP.md) | Email configuration (Gmail App Password & OAuth2) |
-| [API_REFERENCE.md](./API_REFERENCE.md) | Complete API endpoints documentation |
-
-### Development Guides
+### Frontend Documentation
 
 | File | Purpose |
 |------|---------|
-| [DEVELOPMENT.md](./DEVELOPMENT.md) | Development workflow and best practices |
-| [COMPONENTS.md](./COMPONENTS.md) | Frontend component structure |
-| [TESTING.md](./TESTING.md) | Testing strategy and examples |
+| [FRONTEND_README.md](./FRONTEND_README.md) | Frontend-specific setup and information |
+
+### Reference & Notes
+
+| File | Purpose |
+|------|---------|
+| [EMAIL_DEBUG_REPORT.md](./EMAIL_DEBUG_REPORT.md) | Email setup troubleshooting notes |
+| [FutureFeature.md](./FutureFeature.md) | Future feature ideas and improvements |
+
+### Configuration Guides (Planned)
+
+| File | Purpose |
+|------|---------|
+| [EMAIL_SETUP.md](./EMAIL_SETUP.md) | Email configuration (Gmail App Password & OAuth2) - Coming soon |
+| [API_REFERENCE.md](./API_REFERENCE.md) | Complete API endpoints documentation - Coming soon |
+
+### Development Guides (Planned)
+
+| File | Purpose |
+|------|---------|
+| [DEVELOPMENT.md](./DEVELOPMENT.md) | Development workflow and best practices - Coming soon |
+| [COMPONENTS.md](./COMPONENTS.md) | Frontend component structure - Coming soon |
+| [TESTING.md](./TESTING.md) | Testing strategy and examples - Coming soon |
 
 ---
 
